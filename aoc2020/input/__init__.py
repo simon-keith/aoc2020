@@ -17,5 +17,5 @@ def get_puzzle_input(name: str) -> Sequence[str]:
     path = _here / f"{name}.txt"
     try:
         return _read_file(path=path)
-    except FileNotFoundError:
-        raise ValueError(f"no puzzle input for '{name}'")
+    except FileNotFoundError as e:
+        raise ValueError(f"no puzzle input for '{name}'") from e

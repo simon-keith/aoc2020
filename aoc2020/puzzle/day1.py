@@ -24,8 +24,8 @@ def solve_first_puzzle(puzzle_input: Sequence[str], *, target_sum: int = 2020) -
     integers = parse_puzzle_input(puzzle_input)
     try:
         a, b = next(iter_pairs_with_sum(integers=integers, target_sum=target_sum))
-    except StopIteration:
-        raise ValueError(f"found no pair that sum to {target_sum}")
+    except StopIteration as e:
+        raise ValueError(f"found no pair that sum to {target_sum}") from e
     return a * b
 
 
