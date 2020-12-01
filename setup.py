@@ -28,7 +28,7 @@ setup(
     author=author,
     author_email=author_email,
     packages=find_namespace_packages(include=("{name}*".format(name=name),)),
-    package_data={},
+    package_data={"aoc2020.input": ["*.txt"]},
     python_requires=">=3.7, <4",
     install_requires=install_requires,
 )
