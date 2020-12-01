@@ -1,6 +1,6 @@
 import functools
 import pathlib
-import typing
+from typing import Sequence
 
 _here = pathlib.Path(__file__).parent.resolve()
 
@@ -13,7 +13,7 @@ def _read_file(path: pathlib.PosixPath):
 
 
 @functools.cache
-def get_puzzle_input(name: str) -> typing.Tuple[str]:
+def get_puzzle_input(name: str) -> Sequence[str]:
     path = _here / f"{name}.txt"
     try:
         return _read_file(path=path)

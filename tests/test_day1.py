@@ -1,11 +1,11 @@
-from typing import Tuple
+from typing import Sequence
 
 from aoc2020.puzzle.day1 import solve_first_puzzle
 from pytest import fixture
 
 
 @fixture
-def puzzle_input() -> Tuple:
+def puzzle_input() -> Sequence[str]:
     return ("1721", "979", "366", "299", "675", "1456")
 
 

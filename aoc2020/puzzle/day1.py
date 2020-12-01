@@ -5,7 +5,7 @@ from aoc2020.input import get_puzzle_input
 puzzle_input = get_puzzle_input("day1")
 
 
-def parse_puzzle_input(puzzle_input: Tuple[str]) -> Tuple[int]:
+def parse_puzzle_input(puzzle_input: Sequence[str]) -> Sequence[int]:
     return tuple(int(x) for x in puzzle_input)
 
 
@@ -20,7 +20,7 @@ def iter_pairs_with_sum(
         integer_set.add(i)
 
 
-def solve_first_puzzle(puzzle_input: Tuple[str], *, target_sum: int = 2020) -> int:
+def solve_first_puzzle(puzzle_input: Sequence[str], *, target_sum: int = 2020) -> int:
     integers = parse_puzzle_input(puzzle_input)
     try:
         a, b = next(iter_pairs_with_sum(integers=integers, target_sum=target_sum))
