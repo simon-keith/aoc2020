@@ -23,16 +23,14 @@ def iter_triples_that_sum_to_target(
 ) -> Iterable[Tuple[int, int]]:
     for i in integer_set:
         diff = target - i
-        for pair in iter_pairs_that_sum_to_target(integer_set=integer_set, target=diff):
+        for pair in iter_pairs_that_sum_to_target(integer_set, diff):
             yield i, *pair
 
 
 def solve_first_part(puzzle_input: Sequence[str], target: int = 2020) -> int:
     integer_set = set(parse_puzzle_input(puzzle_input))
     try:
-        a, b = next(
-            iter_pairs_that_sum_to_target(integer_set=integer_set, target=target)
-        )
+        a, b = next(iter_pairs_that_sum_to_target(integer_set, target))
     except StopIteration as e:
         raise ValueError(f"found no pair that sum to {target}") from e
     return a * b
@@ -41,9 +39,7 @@ def solve_first_part(puzzle_input: Sequence[str], target: int = 2020) -> int:
 def solve_second_part(puzzle_input: Sequence[str], target: int = 2020) -> int:
     integer_set = set(parse_puzzle_input(puzzle_input))
     try:
-        a, b, c = next(
-            iter_triples_that_sum_to_target(integer_set=integer_set, target=target)
-        )
+        a, b, c = next(iter_triples_that_sum_to_target(integer_set, target))
     except StopIteration as e:
         raise ValueError(f"found no triple that sum to {target}") from e
     return a * b * c
