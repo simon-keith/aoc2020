@@ -42,15 +42,16 @@ def validate_first_policy(item: PuzzleItem) -> bool:
     return item.x1 <= letter_count <= item.x2
 
 
-def get_char(x: str, i: int) -> Optional[str]:
+def get_char(x: str, one_based_index: int) -> Optional[str]:
+    zero_based_index = one_based_index - 1
     try:
-        return x[i]
+        return x[zero_based_index]
     except IndexError:
         return
 
 
 def validate_second_policy(item: PuzzleItem) -> bool:
-    a, b = get_char(item.password, item.x1 - 1), get_char(item.password, item.x2 - 1)
+    a, b = get_char(item.password, item.x1), get_char(item.password, item.x2)
     return (a == item.letter or b == item.letter) and a != b
 
 
