@@ -1,5 +1,6 @@
 import re
-from typing import Callable, Sequence, Tuple
+from dataclasses import dataclass
+from typing import Callable, Optional, Sequence
 
 from aoc2020.input import get_puzzle_input
 
@@ -7,43 +8,50 @@ puzzle_input = get_puzzle_input("day2")
 puzzle_pattern = re.compile(
     r"(?P<x1>\d+)-(?P<x2>\d+)\s+(?P<letter>\w{1}):\s+(?P<password>\w+)"
 )
-PuzzleItemType = Tuple[str, str, int, int]
 
 
-def parse_puzzle_item(item: str) -> PuzzleItemType:
+@dataclass
+class PuzzleItem:
+    password: str
+    letter: str
+    x1: int
+    x2: int
+
+
+def parse_puzzle_item(item: str) -> PuzzleItem:
     match = puzzle_pattern.match(item)
     if match is None:
         raise ValueError(f"'{item}' if not conform")
     x1, x2, letter, password = match.groups()
     x1, x2 = int(x1), int(x2)
-    return password, letter, x1, x2
+    return PuzzleItem(password, letter, x1, x2)
 
 
 def count_valid_items(
-    puzzle_input: Sequence[str], policy_func: Callable[[str, str, int, int], bool]
+    puzzle_input: Sequence[str], policy_func: Callable[[PuzzleItem], bool]
 ):
     valid_count = 0
-    for item in puzzle_input:
-        password, letter, x1, x2 = parse_puzzle_item(item)
-        valid_count += policy_func(password, letter, x1, x2)
+    for raw_item in puzzle_input:
+        item = parse_puzzle_item(raw_item)
+        valid_count += policy_func(item)
     return valid_count
 
 
-def validate_first_policy(password: str, letter: str, x1: int, x2: int) -> bool:
-    letter_count = sum(char is letter for char in password)
-    return x1 <= letter_count <= x2
+def validate_first_policy(item: PuzzleItem) -> bool:
+    letter_count = sum(char is item.letter for char in item.password)
+    return item.x1 <= letter_count <= item.x2
 
 
-def get_char(x: str, i: int):
+def get_char(x: str, i: int) -> Optional[str]:
     try:
         return x[i]
     except IndexError:
         return
 
 
-def validate_second_policy(password: str, letter: str, x1: int, x2: int) -> bool:
-    a, b = get_char(password, x1 - 1), get_char(password, x2 - 1)
-    return (a == letter or b == letter) and a != b
+def validate_second_policy(item: PuzzleItem) -> bool:
+    a, b = get_char(item.password, item.x1 - 1), get_char(item.password, item.x2 - 1)
+    return (a == item.letter or b == item.letter) and a != b
 
 
 def solve_first_part(puzzle_input: Sequence[str]) -> int:

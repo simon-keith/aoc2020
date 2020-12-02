@@ -20,12 +20,12 @@ def puzzle_input() -> Sequence[str]:
 
 
 def test_first_part(puzzle_input):
-    valid = tuple(validate_first_policy(*parse_puzzle_item(x)) for x in puzzle_input)
+    valid = tuple(validate_first_policy(parse_puzzle_item(x)) for x in puzzle_input)
     assert valid == (True, False, True)
     assert solve_first_part(puzzle_input) == 2
 
 
 def test_second_part(puzzle_input):
-    valid = tuple(validate_second_policy(*parse_puzzle_item(x)) for x in puzzle_input)
+    valid = tuple(validate_second_policy(parse_puzzle_item(x)) for x in puzzle_input)
     assert valid == (True, False, False)
     assert solve_second_part(puzzle_input) == 1
