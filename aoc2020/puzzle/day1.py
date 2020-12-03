@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from typing import Iterable, Sequence, Set, Tuple
 
 from aoc2020.input import get_puzzle_input

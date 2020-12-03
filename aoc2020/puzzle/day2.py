@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import re
 from dataclasses import dataclass
 from typing import Callable, Optional, Sequence

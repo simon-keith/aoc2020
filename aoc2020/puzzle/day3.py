@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import math
 from typing import Sequence
 
@@ -13,16 +14,14 @@ PUZZLE_SLOPES = (
 )
 
 
-def count_trees_in_path(
-    puzzle_input: Sequence[str], right: int, down: int, tree_char: str = "#"
-) -> int:
+def count_trees_in_path(puzzle_input: Sequence[str], right: int, down: int) -> int:
     count = 0
     i, j = 0, 0
     while i < len(puzzle_input) - down:
         i += down
         row = puzzle_input[i]
         j = (j + right) % len(row)
-        count += row[j] == tree_char
+        count += row[j] == "#"
     return count
 
 
