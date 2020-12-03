@@ -4,8 +4,7 @@ from typing import Callable, Optional, Sequence
 
 from aoc2020.input import get_puzzle_input
 
-puzzle_input = get_puzzle_input("day2")
-puzzle_pattern = re.compile(
+PUZZLE_PATTERN = re.compile(
     r"(?P<x1>\d+)-(?P<x2>\d+)\s+(?P<letter>\w{1}):\s+(?P<password>\w+)"
 )
 
@@ -19,7 +18,7 @@ class PuzzleItem:
 
 
 def parse_puzzle_item(item: str) -> PuzzleItem:
-    match = puzzle_pattern.match(item)
+    match = PUZZLE_PATTERN.match(item)
     if match is None:
         raise ValueError(f"'{item}' is not conform")
     password, letter, x1, x2 = map(match.group, ("password", "letter", "x1", "x2"))
@@ -28,7 +27,7 @@ def parse_puzzle_item(item: str) -> PuzzleItem:
 
 def count_valid_items(
     puzzle_input: Sequence[str], policy_func: Callable[[PuzzleItem], bool]
-):
+) -> int:
     valid_count = 0
     for raw_item in puzzle_input:
         item = parse_puzzle_item(raw_item)
@@ -63,5 +62,6 @@ def solve_second_part(puzzle_input: Sequence[str]) -> int:
 
 
 if __name__ == "__main__":
-    print(solve_first_part(puzzle_input=puzzle_input))
-    print(solve_second_part(puzzle_input=puzzle_input))
+    puzzle_input = get_puzzle_input("day2")
+    print(solve_first_part(puzzle_input))
+    print(solve_second_part(puzzle_input))
