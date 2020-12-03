@@ -22,9 +22,8 @@ def parse_puzzle_item(item: str) -> PuzzleItem:
     match = puzzle_pattern.match(item)
     if match is None:
         raise ValueError(f"'{item}' is not conform")
-    x1, x2, letter, password = match.groups()
-    x1, x2 = int(x1), int(x2)
-    return PuzzleItem(password, letter, x1, x2)
+    password, letter, x1, x2 = map(match.group, ("password", "letter", "x1", "x2"))
+    return PuzzleItem(password, letter, int(x1), int(x2))
 
 
 def count_valid_items(
