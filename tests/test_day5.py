@@ -1,17 +1,16 @@
 from typing import Sequence
 
-from aoc2020.puzzle.day5 import solve_first_part, solve_second_part
+from aoc2020.puzzle.day5 import decode_seat, parse_puzzle_input, solve_first_part
 from pytest import fixture
 
 
 @fixture
 def puzzle_input() -> Sequence[str]:
-    return ()
+    return ("FBFBBFFRLR", "FBFBBFFRLR", "BFFFBBFRRR", "FFFBBBFRRR", "BBFFBBFRLL")
 
 
 def test_first_part(puzzle_input):
-    assert solve_first_part(puzzle_input) == 0
-
-
-def test_second_part(puzzle_input):
-    assert solve_second_part(puzzle_input) == 0
+    seat_list = parse_puzzle_input(puzzle_input)
+    decoded_seat_list = tuple(decode_seat(r, c) for r, c in seat_list)
+    assert decoded_seat_list == ((44, 5), (44, 5), (70, 7), (14, 7), (102, 4))
+    assert solve_first_part(puzzle_input) == 820
