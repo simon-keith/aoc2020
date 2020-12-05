@@ -7,27 +7,35 @@ from typing import Dict, Optional, Sequence
 from aoc2020.input import get_puzzle_input
 
 
+def validate_int_value(value: str, min_value: int, max_value: int):
+    try:
+        int_value = int(value)
+    except ValueError:
+        return False
+    return min_value <= int_value <= max_value
+
+
 @dataclass
 class Passeport:
     _HGT_PATTERN = re.compile(r"^(\d+)(\w{2})$")
-    _HGT_RULES = {"in": ("59", "76"), "cm": ("150", "193")}
+    _HGT_RULES = {"in": (59, 76), "cm": (150, 193)}
     _HCL_PATTERN = re.compile(r"^(#[0-9a-f]{6})$")
     _ECL_SET = frozenset(["amb", "blu", "brn", "gry", "grn", "hzl", "oth"])
     _PID_PATTERN = re.compile(r"^(\d{9})$")
 
     @classmethod
     def validate_byr(cls, v: str) -> str:
-        assert "1920" <= v <= "2002"
+        assert validate_int_value(v, 1920, 2002)
         return v
 
     @classmethod
     def validate_iyr(cls, v: str) -> str:
-        assert "2010" <= v <= "2020"
+        assert validate_int_value(v, 2010, 2020)
         return v
 
     @classmethod
     def validate_eyr(cls, v: str) -> str:
-        assert "2020" <= v <= "2030"
+        assert validate_int_value(v, 2020, 2030)
         return v
 
     @classmethod
@@ -37,7 +45,7 @@ class Passeport:
         value, unit = match.groups()
         assert unit in cls._HGT_RULES
         min_value, max_value = cls._HGT_RULES[unit]
-        assert min_value <= value <= max_value
+        assert validate_int_value(value, min_value, max_value)
         return v
 
     @classmethod
