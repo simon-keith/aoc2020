@@ -18,21 +18,17 @@ def parse_puzzle_input(puzzle_input: Sequence[str]) -> Sequence[Tuple[Operation,
 
 
 def run_boot_code(instructions: Sequence[Tuple[Operation, int]]) -> int:
-    ran = set()
+    visited = set()
     accumulator = 0
     i = 0
     while i < len(instructions):
-        if i in ran:
+        if i in visited:
             break
+        visited.add(i)
         operation, argument = instructions[i]
-        if operation is Operation.JMP:
-            inc = argument
-        else:
-            if operation is Operation.ACC:
-                accumulator += argument
-            inc = 1
-        ran.add(i)
-        i += inc
+        if operation is Operation.ACC:
+            accumulator += argument
+        i += argument if operation is Operation.JMP else 1
     return accumulator
 
 
