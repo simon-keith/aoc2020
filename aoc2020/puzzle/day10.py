@@ -1,15 +1,18 @@
 #!/usr/bin/env python
-from typing import Sequence, Dict
+from itertools import chain
+from typing import Dict, Sequence
 
 from aoc2020.input import get_puzzle_input
 
 
 def parse_puzzle_input(puzzle_input: Sequence[str]) -> Sequence[int]:
-    return tuple(sorted(int(x) for x in puzzle_input))
+    adapters = [int(x) for x in puzzle_input]
+    adapters.sort()
+    return tuple(chain(adapters, [adapters[-1] + 3]))
 
 
 def count_differences(adapters: Sequence[int]) -> Dict[int, int]:
-    counter = {1: 0, 2: 0, 3: 1}
+    counter = {1: 0, 2: 0, 3: 0}
     rating = 0
     for a in adapters:
         counter[a - rating] += 1
@@ -17,8 +20,12 @@ def count_differences(adapters: Sequence[int]) -> Dict[int, int]:
     return counter
 
 
-def count_arrangements(adapters: Sequence[int], i: int = 0) -> int:
-    pass
+def count_arrangements(adapters: Sequence[int]) -> int:
+    diffs = [1, 2, 3]
+    counter = {0: 1}
+    for a in adapters:
+        counter[a] = sum(map(lambda i: counter.get(a - i, 0), diffs))
+    return counter[adapters[-1]]
 
 
 def solve_first_part(puzzle_input: Sequence[str]) -> int:
@@ -28,7 +35,8 @@ def solve_first_part(puzzle_input: Sequence[str]) -> int:
 
 
 def solve_second_part(puzzle_input: Sequence[str]) -> int:
-    return -1
+    adapters = parse_puzzle_input(puzzle_input)
+    return count_arrangements(adapters)
 
 
 if __name__ == "__main__":
