@@ -64,4 +64,5 @@ def test_first_part(small_puzzle_input, large_puzzle_input):
 
 
 def test_second_part(small_puzzle_input, large_puzzle_input):
-    assert solve_second_part(small_puzzle_input) == 0
+    assert solve_second_part(small_puzzle_input) == 8
+    assert solve_second_part(large_puzzle_input) == 19208
