@@ -1,6 +1,6 @@
 from typing import Sequence
 
-from aoc2020.puzzle.day01 import solve_first_part, solve_second_part
+from aoc2020.puzzle.day11 import solve_first_part, solve_second_part
 from pytest import fixture
 
 
@@ -21,7 +21,7 @@ def puzzle_input() -> Sequence[str]:
 
 
 def test_first_part(puzzle_input):
-    assert solve_first_part(puzzle_input) == 0
+    assert solve_first_part(puzzle_input) == 37
 
 
 def test_second_part(puzzle_input):
