@@ -1,6 +1,6 @@
 from typing import Sequence
 
-from aoc2020.puzzle.day7 import solve_first_part, solve_second_part
+from aoc2020.puzzle.day07 import solve_first_part, solve_second_part
 from pytest import fixture
 
 

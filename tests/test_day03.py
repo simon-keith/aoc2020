@@ -1,6 +1,6 @@
 from typing import Sequence
 
-from aoc2020.puzzle.day3 import (
+from aoc2020.puzzle.day03 import (
     PUZZLE_SLOPES,
     count_trees_in_path,
     solve_first_part,

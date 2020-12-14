@@ -1,6 +1,6 @@
 from typing import Sequence
 
-from aoc2020.puzzle.day5 import parse_puzzle_input
+from aoc2020.puzzle.day05 import parse_puzzle_input
 from pytest import fixture
 
 

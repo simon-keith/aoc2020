@@ -1,6 +1,6 @@
 from typing import Sequence
 
-from aoc2020.puzzle.day4 import Passeport, solve_first_part, solve_second_part
+from aoc2020.puzzle.day04 import Passeport, solve_first_part, solve_second_part
 from pytest import fixture, raises
 
 

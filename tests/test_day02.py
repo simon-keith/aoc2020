@@ -1,6 +1,6 @@
 from typing import Sequence
 
-from aoc2020.puzzle.day2 import (
+from aoc2020.puzzle.day02 import (
     parse_puzzle_item,
     solve_first_part,
     solve_second_part,

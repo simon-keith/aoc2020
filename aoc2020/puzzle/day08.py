@@ -57,6 +57,6 @@ def solve_second_part(puzzle_input: Sequence[str]) -> int:
 
 
 if __name__ == "__main__":
-    puzzle_input = get_puzzle_input("day8")
+    puzzle_input = get_puzzle_input("day08")
     print(solve_first_part(puzzle_input))
     print(solve_second_part(puzzle_input))

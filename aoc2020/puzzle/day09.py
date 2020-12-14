@@ -2,7 +2,7 @@
 from typing import Sequence
 
 from aoc2020.input import get_puzzle_input
-from aoc2020.puzzle.day1 import iter_pairs_that_sum_to_target
+from aoc2020.puzzle.day01 import iter_pairs_that_sum_to_target
 
 PUZZLE_PREAMBLE = 25
 
@@ -57,6 +57,6 @@ def solve_second_part(
 
 
 if __name__ == "__main__":
-    puzzle_input = get_puzzle_input("day9")
+    puzzle_input = get_puzzle_input("day09")
     print(solve_first_part(puzzle_input))
     print(solve_second_part(puzzle_input))
