@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-from itertools import chain
 from typing import Sequence
 
 from aoc2020.input import get_puzzle_input
@@ -7,20 +6,23 @@ from aoc2020.input import get_puzzle_input
 
 class Seats:
     def __init__(self, grid: Sequence[str]) -> None:
-        self.h = range(len(grid))
-        self.w = range(len(grid[0])) if self.h else range(0)
-        self.grid = [[grid[i][j] for j in self.w] for i in self.h]
+        chars = {"L", "#"}
+        h, w = 0, 0
+        self._hashmap = {}
+        for i, row in enumerate(grid):
+            for j, s in enumerate(row):
+                if s in chars:
+                    self._hashmap[complex(i, j)] = s
+                    h, w = max(h, i), max(w, j)
+        self._dim = (h + 1, w + 1)
+        self._adj = (-1 - 1j, -1 + 0j, -1 + 1j, -1j, 1j, 1 - 1j, 1 + 0j, 1 + 1j)
         self._update_counter = 0
 
-    def get_next_state(self, i: int, j: int) -> str:
-        current_status = self.grid[i][j]
-        if current_status == ".":
-            return "."
+    def get_next_state(self, key: complex) -> str:
+        current_status = self._hashmap[key]
         occupied_count = 0
-        for m in range(i - 1, i + 2):
-            for n in range(j - 1, j + 2):
-                if m in self.h and n in self.w and (i, j) != (m, n):
-                    occupied_count += self.grid[m][n] == "#"
+        for offset in self._adj:
+            occupied_count += self._hashmap.get(key + offset) == "#"
         if current_status == "L" and occupied_count == 0:
             self._update_counter += 1
             return "#"
@@ -31,7 +33,7 @@ class Seats:
 
     def update(self) -> int:
         self._update_counter = 0
-        self.grid = [[self.get_next_state(i, j) for j in self.w] for i in self.h]
+        self._hashmap = {key: self.get_next_state(key) for key in self._hashmap}
         return self._update_counter
 
     def stabilize(self) -> int:
@@ -40,10 +42,17 @@ class Seats:
                 return self.count_occupied()
 
     def count_occupied(self) -> int:
-        return sum(chain.from_iterable((c == "#" for c in r) for r in self.grid))
+        return sum(s == "#" for s in self._hashmap.values())
+
+    def to_grid(self):
+        height, width = self._dim
+        grid = [["." for _ in range(width)] for _ in range(height)]
+        for k, v in self._hashmap.items():
+            grid[int(k.real)][int(k.imag)] = v
+        return grid
 
     def __str__(self) -> str:
-        return "\n".join("".join(r) for r in self.grid)
+        return "\n".join("".join(r) for r in self.to_grid())
 
 
 def solve_first_part(puzzle_input: Sequence[str]) -> int:
