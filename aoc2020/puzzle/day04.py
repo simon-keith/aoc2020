@@ -5,6 +5,7 @@ from itertools import chain, groupby
 from typing import Dict, Optional, Sequence
 
 from aoc2020.input import get_puzzle_input
+from aoc2020.puzzle import print_puzzle
 
 
 def validate_int_value(value: str, min_value: int, max_value: int):
@@ -119,5 +120,4 @@ def solve_second_part(puzzle_input: Sequence[str]) -> int:
 
 if __name__ == "__main__":
     puzzle_input = get_puzzle_input("day04")
-    print(solve_first_part(puzzle_input))
-    print(solve_second_part(puzzle_input))
+    print_puzzle(puzzle_input, solve_first_part, solve_second_part)

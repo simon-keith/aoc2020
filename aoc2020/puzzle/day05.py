@@ -2,6 +2,7 @@
 from typing import Sequence
 
 from aoc2020.input import get_puzzle_input
+from aoc2020.puzzle import print_puzzle
 
 PUZZLE_MAPPING = {"F": "0", "B": "1", "L": "0", "R": "1"}
 
@@ -28,5 +29,4 @@ def solve_second_part(puzzle_input: Sequence[str]) -> int:
 
 if __name__ == "__main__":
     puzzle_input = get_puzzle_input("day05")
-    print(solve_first_part(puzzle_input))
-    print(solve_second_part(puzzle_input))
+    print_puzzle(puzzle_input, solve_first_part, solve_second_part)
