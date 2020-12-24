@@ -25,4 +25,4 @@ def test_first_part(puzzle_input):
 
 
 def test_second_part(puzzle_input):
-    assert solve_second_part(puzzle_input) == 0
+    assert solve_second_part(puzzle_input) == 26
