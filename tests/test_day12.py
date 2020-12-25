@@ -6,11 +6,11 @@ from pytest import fixture
 
 @fixture
 def puzzle_input() -> Sequence[str]:
-    return ()
+    return ("F10", "N3", "F7", "R90", "F11")
 
 
 def test_first_part(puzzle_input):
-    assert solve_first_part(puzzle_input) == 0
+    assert solve_first_part(puzzle_input) == 25
 
 
 def test_second_part(puzzle_input):
